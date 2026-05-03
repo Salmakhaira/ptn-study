@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedPrep UI 2026 — SIMAK UI Kelompok IPA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   DESIGN SYSTEM — Medical Academy: Clean White + Deep Teal
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --bg: #f4f6f5;
+  --bg2: #eef1ef;
+  --surface: #ffffff;
+  --surface2: #f8faf9;
+  --border: #dde4e0;
+  --border2: #c8d4ce;
+  --teal: #1a6b5a;
+  --teal2: #218a72;
+  --teal3: #2aac8e;
+  --teal-light: #e8f4f1;
+  --teal-xlight: #f0f8f6;
+  --red: #c0392b;
+  --red-light: #fdf0ef;
+  --amber: #d68910;
+  --amber-light: #fef9e7;
+  --blue: #1a5276;
+  --blue-light: #eaf1f8;
+  --green: #1e8449;
+  --green-light: #eafaf1;
+  --text: #1a2e25;
+  --text2: #2d4a3e;
+  --muted: #6b8c7d;
+  --muted2: #9db5aa;
+  --shadow: 0 2px 16px rgba(26,107,90,0.08);
+  --shadow2: 0 4px 32px rgba(26,107,90,0.12);
+  --radius: 14px;
+  --radius2: 20px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--teal3); border-radius: 3px; }
+
+/* TOPBAR */
+#topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: var(--teal);
+  height: 60px;
+  display: flex; align-items: center;
+  padding: 0 24px;
+  gap: 16px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+}
+
+.topbar-logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none;
+}
+.logo-mark {
+  width: 34px; height: 34px;
+  background: white;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+}
+.logo-text {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.3px;
+}
+.logo-text span { color: #7fe8d0; }
+
+.topbar-nav {
+  display: flex; gap: 4px; margin-left: 8px;
+}
+.topnav-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.75);
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.topnav-btn:hover, .topnav-btn.active {
+  background: rgba(255,255,255,0.15);
+  color: white;
+}
+.topnav-btn.active {
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+
+.topbar-right {
+  margin-left: auto;
+  display: flex; align-items: center; gap: 12px;
+}
+.xp-badge {
+  background: rgba(255,255,255,0.15);
+  border-radius: 99px;
+  color: #7fe8d0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  display: flex; align-items: center; gap: 5px;
+}
+.streak-badge {
+  background: rgba(255,255,255,0.15);
+  border-radius: 99px;
+  color: #ffc47a;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  display: flex; align-items: center; gap: 5px;
+}
+
+/* MAIN LAYOUT */
+#app {
+  margin-top: 60px;
+  display: flex;
+  min-height: calc(100vh - 60px);
+}
+
+/* SIDEBAR */
+#sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 20px 12px;
+  position: sticky;
+  top: 60px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-section {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted2);
+  padding: 12px 10px 4px;
+}
+
+.sidebar-btn {
+  align-items: center;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  gap: 10px;
+  padding: 9px 12px;
+  text-align: left;
+  transition: all 0.18s;
+  width: 100%;
+}
+.sidebar-btn:hover {
+  background: var(--teal-xlight);
+  color: var(--teal);
+  border-color: transparent;
+}
+.sidebar-btn.active {
+  background: var(--teal-light);
+  border-color: rgba(42,172,142,0.3);
+  color: var(--teal);
+  font-weight: 600;
+}
+.sidebar-btn .sb-icon { font-size: 1rem; min-width: 20px; text-align: center; }
+.sidebar-btn .sb-badge {
+  margin-left: auto;
+  background: var(--teal);
+  color: white;
+  border-radius: 99px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 1px 7px;
+}
+
+.sidebar-progress {
+  margin: 4px 10px;
+  background: var(--bg2);
+  border-radius: 99px;
+  height: 4px;
+  overflow: hidden;
+}
+.sidebar-progress-fill {
+  background: linear-gradient(90deg, var(--teal), var(--teal3));
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.5s ease;
+}
+.sidebar-progress-label {
+  font-size: 0.7rem;
+  color: var(--muted);
+  padding: 2px 10px 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* CONTENT */
+#content {
+  flex: 1;
+  padding: 28px 32px;
+  max-width: 1100px;
+  overflow-y: auto;
+}
+
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* DASHBOARD */
+.dash-hero {
+  background: linear-gradient(135deg, var(--teal) 0%, #0f4a3c 100%);
+  border-radius: var(--radius2);
+  color: white;
+  padding: 32px 36px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.dash-hero::before {
+  content: '';
+  position: absolute;
+  right: -40px; top: -40px;
+  width: 220px; height: 220px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.dash-hero::after {
+  content: '';
+  position: absolute;
+  right: 40px; bottom: -60px;
+  width: 160px; height: 160px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 50%;
+}
+.dash-hero h1 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.dash-hero p { color: rgba(255,255,255,0.75); font-size: 0.9rem; margin-bottom: 20px; }
+.hero-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.hero-chip {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 99px;
+  color: rgba(255,255,255,0.9);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+}
+
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+}
+.stat-card .sc-label { font-size: 0.75rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.stat-card .sc-val { font-size: 1.8rem; font-weight: 800; color: var(--teal); line-height: 1; margin-bottom: 4px; }
+.stat-card .sc-sub { font-size: 0.75rem; color: var(--muted); }
+
+.dash-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  box-shadow: var(--shadow);
+}
+.card-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subj-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.subj-name { font-size: 0.8rem; font-weight: 600; color: var(--text2); min-width: 90px; }
+.subj-bar { flex: 1; background: var(--bg2); border-radius: 99px; height: 8px; overflow: hidden; }
+.subj-bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--teal), var(--teal3)); transition: width 0.5s; }
+.subj-pct { font-size: 0.75rem; color: var(--muted); font-weight: 600; min-width: 35px; text-align: right; }
+
+.timeline-item {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.timeline-item:last-child { border-bottom: none; }
+.tl-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--teal3);
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.tl-dot.done { background: var(--green); }
+.tl-dot.pending { background: var(--muted2); }
+.tl-dot.urgent { background: var(--red); }
+.tl-title { font-size: 0.85rem; font-weight: 600; color: var(--text2); }
+.tl-date { font-size: 0.75rem; color: var(--muted); }
+
+.sched-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--surface2);
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid var(--border);
+}
+.sched-item:hover { background: var(--teal-xlight); border-color: rgba(42,172,142,0.2); }
+.sched-item.done { opacity: 0.55; }
+.sched-item.done .sched-check { background: var(--green); }
+.sched-check {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  border: 2px solid var(--border2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: white;
+}
+.sched-check:hover { border-color: var(--teal); }
+.sched-info { flex: 1; }
+.sched-title { font-size: 0.85rem; font-weight: 600; color: var(--text2); }
+.sched-sub { font-size: 0.75rem; color: var(--muted); }
+.sched-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+  text-transform: uppercase;
+}
+.tag-ipa { background: var(--blue-light); color: var(--blue); }
+.tag-kd { background: var(--teal-light); color: var(--teal); }
+.tag-tpa { background: var(--amber-light); color: var(--amber); }
+.tag-to { background: var(--red-light); color: var(--red); }
+
+/* MATERI */
+.materi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.materi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+.materi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--card-color, var(--teal));
+  transform: scaleX(0);
+  transition: transform 0.3s;
+  transform-origin: left;
+}
+.materi-card:hover { transform: translateY(-2px); box-shadow: var(--shadow2); }
+.materi-card:hover::before { transform: scaleX(1); }
+.mc-icon { font-size: 2rem; margin-bottom: 10px; }
+.mc-title { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.mc-sub { font-size: 0.78rem; color: var(--muted); margin-bottom: 12px; line-height: 1.5; }
+.mc-chips { display: flex; gap: 4px; flex-wrap: wrap; }
+.mc-chip {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--bg2);
+  color: var(--muted);
+}
+
+.materi-detail { display: none; }
+.materi-detail.active { display: block; }
+.materi-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.back-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem;
+  padding: 6px 12px;
+  transition: all 0.2s;
+}
+.back-btn:hover { background: var(--teal-light); color: var(--teal); border-color: var(--teal3); }
+
+.materi-content {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  box-shadow: var(--shadow);
+  line-height: 1.8;
+}
+.materi-content h2 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.6rem;
+  color: var(--teal);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--teal-light);
+}
+.materi-content h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 20px 0 8px;
+}
+.materi-content p { color: var(--text2); margin-bottom: 12px; }
+.materi-content ul, .materi-content ol { margin: 8px 0 12px 20px; color: var(--text2); }
+.materi-content li { margin-bottom: 4px; }
+.formula-box {
+  background: var(--teal-xlight);
+  border: 1px solid rgba(42,172,142,0.2);
+  border-left: 3px solid var(--teal);
+  border-radius: 0 8px 8px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88rem;
+  margin: 12px 0;
+  padding: 12px 16px;
+  color: var(--teal);
+}
+.info-box {
+  background: var(--blue-light);
+  border: 1px solid rgba(26,82,118,0.2);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85rem;
+  color: var(--blue);
+}
+.warning-box {
+  background: var(--amber-light);
+  border: 1px solid rgba(214,137,16,0.2);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85rem;
+  color: var(--amber);
+}
+
+/* TRYOUT & LATIHAN */
+.tryout-header {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow);
+}
+.to-title { font-size: 1.05rem; font-weight: 700; }
+.to-sub { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+
+.timer-display {
+  background: var(--teal);
+  border-radius: 12px;
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.6rem;
+  font-weight: 600;
+  padding: 10px 24px;
+  letter-spacing: 2px;
+  text-align: center;
+  min-width: 130px;
+}
+.timer-display.urgent { background: var(--red); animation: pulse 1s infinite; }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.7; } }
+
+.to-progress-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.to-progress-bar { flex: 1; min-width: 200px; background: var(--bg2); border-radius: 99px; height: 8px; overflow: hidden; }
+.to-progress-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--teal), var(--teal3)); transition: width 0.3s; }
+.to-stat { text-align: center; }
+.to-stat-val { font-size: 1.1rem; font-weight: 800; color: var(--teal); }
+.to-stat-lbl { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+
+.soal-nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
+  gap: 4px;
+  margin-bottom: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+.nav-num {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.nav-num:hover { background: var(--teal-light); border-color: var(--teal3); color: var(--teal); }
+.nav-num.answered { background: var(--teal); color: white; border-color: var(--teal); }
+.nav-num.current { background: var(--teal2); color: white; border-color: var(--teal2); box-shadow: 0 0 0 3px rgba(42,172,142,0.2); }
+
+.soal-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+.soal-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.soal-num-badge {
+  background: var(--teal);
+  color: white;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+}
+.soal-mapel-badge {
+  background: var(--teal-light);
+  color: var(--teal);
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.kesulitan-badge {
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 8px;
+}
+.k-mudah { background: var(--green-light); color: var(--green); }
+.k-sedang { background: var(--amber-light); color: var(--amber); }
+.k-sulit { background: var(--red-light); color: var(--red); }
+
+.soal-text {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.soal-stimulus {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--teal3);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  color: var(--text2);
+  font-style: italic;
+}
+
+.options { display: flex; flex-direction: column; gap: 8px; }
+.option {
+  align-items: flex-start;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+  transition: all 0.18s;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.option:hover { background: var(--teal-xlight); border-color: rgba(42,172,142,0.4); }
+.option.selected { background: var(--teal-light); border-color: var(--teal); }
+.option.correct { background: var(--green-light); border-color: var(--green); }
+.option.wrong { background: var(--red-light); border-color: var(--red); }
+.opt-key {
+  background: var(--border2);
+  border-radius: 6px;
+  color: var(--text2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  min-width: 26px; height: 26px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.option.selected .opt-key { background: var(--teal); color: white; }
+.option.correct .opt-key { background: var(--green); color: white; }
+.option.wrong .opt-key { background: var(--red); color: white; }
+
+.pembahasan-box {
+  background: linear-gradient(135deg, var(--blue-light), var(--teal-xlight));
+  border: 1px solid rgba(26,82,118,0.15);
+  border-left: 4px solid var(--teal);
+  border-radius: 0 10px 10px 0;
+  display: none;
+  font-size: 0.88rem;
+  line-height: 1.75;
+  margin-top: 16px;
+  padding: 16px 18px;
+  color: var(--text2);
+}
+.pembahasan-box.show { display: block; }
+.pem-title { font-weight: 700; color: var(--teal); margin-bottom: 8px; font-size: 0.9rem; }
+
+.soal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  background: var(--teal);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 9px 20px;
+  transition: all 0.2s;
+}
+.btn-primary:hover { background: var(--teal2); transform: translateY(-1px); }
+.btn-secondary {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 9px 20px;
+  transition: all 0.2s;
+}
+.btn-secondary:hover { background: var(--teal-xlight); border-color: var(--teal3); color: var(--teal); }
+.btn-danger {
+  background: var(--red);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 9px 20px;
+  transition: all 0.2s;
+}
+
+/* HASIL / ANALISIS */
+.hasil-hero {
+  background: linear-gradient(135deg, var(--teal), #0f4a3c);
+  border-radius: var(--radius2);
+  color: white;
+  padding: 32px;
+  text-align: center;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.skor-besar {
+  font-family: 'Crimson Pro', serif;
+  font-size: 5rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.skor-label { font-size: 0.9rem; color: rgba(255,255,255,0.75); margin-bottom: 20px; }
+.skor-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.skor-item {
+  background: rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 12px;
+}
+.skor-item-val { font-size: 1.4rem; font-weight: 800; }
+.skor-item-lbl { font-size: 0.72rem; color: rgba(255,255,255,0.7); }
+
+.analisis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+.analisis-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  box-shadow: var(--shadow);
+}
+.ac-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+
+.mapel-score-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  background: var(--surface2);
+  border-radius: 8px;
+}
+.ms-name { font-size: 0.82rem; font-weight: 600; min-width: 100px; }
+.ms-bar { flex: 1; background: var(--bg2); border-radius: 99px; height: 8px; overflow: hidden; }
+.ms-fill { height: 100%; border-radius: 99px; }
+.ms-fill.green { background: var(--green); }
+.ms-fill.amber { background: var(--amber); }
+.ms-fill.red { background: var(--red); }
+.ms-pct { font-size: 0.8rem; font-weight: 700; min-width: 36px; text-align: right; }
+
+.rekomendasi-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--surface2);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border-left: 3px solid var(--teal);
+  font-size: 0.85rem;
+  color: var(--text2);
+}
+.rekomendasi-item.red { border-left-color: var(--red); background: var(--red-light); color: var(--red); }
+.rekomendasi-item.amber { border-left-color: var(--amber); background: var(--amber-light); color: var(--amber); }
+
+/* JADWAL */
+.jadwal-simak {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+.jadwal-row {
+  display: grid;
+  grid-template-columns: 180px 1fr 150px;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  gap: 16px;
+}
+.jadwal-row:last-child { border-bottom: none; }
+.jadwal-row.header {
+  background: var(--teal);
+  color: white;
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.jadwal-row:nth-child(even) { background: var(--surface2); }
+.jadwal-date { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; font-weight: 600; color: var(--teal); }
+.jadwal-event { font-size: 0.88rem; font-weight: 500; }
+.jadwal-status {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 99px;
+  text-align: center;
+}
+.js-upcoming { background: var(--teal-light); color: var(--teal); }
+.js-soon { background: var(--amber-light); color: var(--amber); }
+.js-past { background: var(--bg2); color: var(--muted); }
+
+.countdown-box {
+  background: linear-gradient(135deg, var(--teal), #0d3d30);
+  border-radius: var(--radius2);
+  color: white;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.cd-title { flex: 1; }
+.cd-title h3 { font-family: 'Crimson Pro', serif; font-size: 1.3rem; margin-bottom: 4px; }
+.cd-title p { color: rgba(255,255,255,0.7); font-size: 0.85rem; }
+.cd-units { display: flex; gap: 12px; }
+.cd-unit {
+  text-align: center;
+  background: rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 10px 16px;
+  min-width: 64px;
+}
+.cd-num { font-family: 'JetBrains Mono', monospace; font-size: 1.6rem; font-weight: 600; line-height: 1; }
+.cd-lbl { font-size: 0.65rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.5px; }
+
+.belajar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.belajar-day {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  background: var(--bg2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--muted2);
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+.belajar-day.today { border: 2px solid var(--teal); color: var(--teal); }
+.belajar-day.done { background: var(--teal); color: white; }
+.belajar-day.done-partial { background: rgba(42,172,142,0.35); color: var(--teal); }
+.belajar-day:hover { background: var(--teal-light); }
+
+/* PAGE TITLE */
+.page-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.page-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 24px; }
+
+/* MODAL */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: var(--surface);
+  border-radius: var(--radius2);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  max-width: 520px;
+  width: 90%;
+  padding: 32px;
+  text-align: center;
+  animation: modalIn 0.3s ease;
+}
+@keyframes modalIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.modal-icon { font-size: 3rem; margin-bottom: 12px; }
+.modal-title { font-family: 'Crimson Pro', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
+.modal-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 24px; }
+.modal-btns { display: flex; gap: 10px; justify-content: center; }
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 3000;
+  background: var(--teal);
+  color: white;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.3s;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* TABS */
+.tab-bar {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 4px;
+  width: fit-content;
+}
+.tab-btn-inner {
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.83rem;
+  font-weight: 600;
+  padding: 7px 16px;
+  transition: all 0.2s;
+}
+.tab-btn-inner:hover { color: var(--text); }
+.tab-btn-inner.active { background: var(--teal); color: white; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  #sidebar { display: none; }
+  #content { padding: 16px; }
+  .dash-grid { grid-template-columns: repeat(2, 1fr); }
+  .materi-grid { grid-template-columns: repeat(2, 1fr); }
+  .analisis-grid { grid-template-columns: 1fr; }
+  .skor-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.fade-in { animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform:none; } }
+
+.tag-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  border-radius: 6px; font-size: 0.68rem; font-weight: 800;
+  padding: 3px 9px; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.tag-hots { background: linear-gradient(135deg,#e74c3c,#c0392b); color: white; }
+.tag-plek { background: linear-gradient(135deg,#8e44ad,#6c3483); color: white; }
+.tag-gambar { background: linear-gradient(135deg,#2980b9,#1a5276); color: white; }
+.soal-img-wrap {
+  margin: 12px 0; border: 1px solid var(--border);
+  border-radius: 10px; overflow: hidden; background: #f8faf9;
+  display: flex; justify-content: center; padding: 8px;
+}
+.soal-img-wrap svg { max-width: 100%; height: auto; }
+.filter-btn {
+  padding: 5px 14px; border-radius: 99px; font-size: 0.8rem;
+  font-weight: 600; border: 2px solid var(--border2);
+  background: var(--surface); color: var(--text2); cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn.active { border-color: var(--teal); background: var(--teal); color: white; }
+.filter-btn:hover:not(.active) { border-color: var(--teal2); color: var(--teal); }
+
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div id="topbar">
+  <div class="topbar-logo">
+    <div class="logo-mark">🩺</div>
+    <div class="logo-text">Med<span>Prep</span> UI</div>
+  </div>
+  <div class="topbar-nav">
+    <button class="topnav-btn active" onclick="goTo('dashboard')">Dashboard</button>
+    <button class="topnav-btn" onclick="goTo('materi')">Materi</button>
+    <button class="topnav-btn" onclick="goTo('latihan')">Latihan Soal</button>
+    <button class="topnav-btn" onclick="goTo('tryout')">Try Out</button>
+    <button class="topnav-btn" onclick="goTo('jadwal')">Jadwal</button>
+    <button class="topnav-btn" onclick="goTo('analisis')">Analisis</button>
+    <button class="topnav-btn" onclick="goTo('developer')" style="opacity:0.7;font-size:0.77rem">⚙️ Dev</button>
+  </div>
+  <div class="topbar-right">
+    <div class="xp-badge">⚡ <span id="xp-count">0</span> XP</div>
+    <div class="streak-badge">🔥 <span id="streak-count">3</span> hari</div>
+  </div>
+</div>
+
+<div id="app">
+  <div id="sidebar">
+    <div class="sidebar-section">Navigasi</div>
+    <button class="sidebar-btn active" onclick="goTo('dashboard')" id="sb-dashboard"><span class="sb-icon">🏠</span> Dashboard</button>
+    <div class="sidebar-section">Belajar</div>
+    <button class="sidebar-btn" onclick="goTo('materi')" id="sb-materi"><span class="sb-icon">📚</span> Materi</button>
+    <button class="sidebar-btn" onclick="goTo('latihan')" id="sb-latihan"><span class="sb-icon">✏️</span> Latihan Soal</button>
+    <div class="sidebar-section">Simulasi</div>
+    <button class="sidebar-btn" onclick="goTo('tryout')" id="sb-tryout"><span class="sb-icon">🎯</span> Try Out Penuh <span class="sb-badge">BARU</span></button>
+    <button class="sidebar-btn" onclick="goTo('analisis')" id="sb-analisis"><span class="sb-icon">📊</span> Analisis</button>
+    <div class="sidebar-section">Perencanaan</div>
+    <button class="sidebar-btn" onclick="goTo('jadwal')" id="sb-jadwal"><span class="sb-icon">📅</span> Jadwal SIMAK</button>
+    <div class="sidebar-section">Progress Belajar</div>
+    <div style="padding:0 4px">
+      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:4px;padding:0 8px">Kemampuan Dasar</div>
+      <div class="sidebar-progress"><div class="sidebar-progress-fill" id="sp-kd" style="width:0%"></div></div>
+      <div class="sidebar-progress-label"><span>Mat · BI · Ing</span><span id="sp-kd-pct">0%</span></div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:4px;padding:0 8px">IPA (Fisika/Kim/Bio/Mat)</div>
+      <div class="sidebar-progress"><div class="sidebar-progress-fill" id="sp-ipa" style="width:0%"></div></div>
+      <div class="sidebar-progress-label"><span>Kemampuan IPA</span><span id="sp-ipa-pct">0%</span></div>
+    </div>
+  </div>
+
+  <div id="content">
+    <!-- DASHBOARD -->
+    <div id="screen-dashboard" class="screen active fade-in">
+      <div class="dash-hero">
+        <h1>Selamat Datang di MedPrep UI 🩺</h1>
+        <p>Platform persiapan SIMAK UI 2026 khusus Kedokteran Umum (FK UI). Ujian dilaksanakan <strong>Juli 2026</strong> — mulai persiapan sekarang!</p>
+        <div class="hero-chips">
+          <span class="hero-chip">FK UI — Pendidikan Dokter</span>
+          <span class="hero-chip">Kelompok IPA (IPC)</span>
+          <span class="hero-chip">Kemampuan Dasar + IPA</span>
+          <span class="hero-chip">Skor Min. Estimasi 700+</span>
+          <span class="hero-chip">−1/4 untuk salah</span>
+        </div>
+      </div>
+      <div class="dash-grid">
+        <div class="stat-card"><div class="sc-label">Soal Dikerjakan</div><div class="sc-val" id="stat-soal">0</div><div class="sc-sub">dari total 500+ soal</div></div>
+        <div class="stat-card"><div class="sc-label">Rata-rata Skor</div><div class="sc-val" id="stat-skor">—</div><div class="sc-sub">Try out terakhir</div></div>
+        <div class="stat-card"><div class="sc-label">Akurasi</div><div class="sc-val" id="stat-akurasi">—</div><div class="sc-sub">Kebenaran jawaban</div></div>
+        <div class="stat-card"><div class="sc-label">TryOut Selesai</div><div class="sc-val" id="stat-to">0</div><div class="sc-sub">Simulasi penuh</div></div>
+      </div>
+      <div class="dash-row">
+        <div class="card">
+          <div class="card-title">📈 Progress per Mata Uji</div>
+          <div class="subj-row"><span class="subj-name">Matematika</span><div class="subj-bar"><div class="subj-bar-fill" id="prg-mat" style="width:0%"></div></div><span class="subj-pct" id="prg-mat-t">0%</span></div>
+          <div class="subj-row"><span class="subj-name">B. Indonesia</span><div class="subj-bar"><div class="subj-bar-fill" id="prg-bi" style="width:0%"></div></div><span class="subj-pct" id="prg-bi-t">0%</span></div>
+          <div class="subj-row"><span class="subj-name">B. Inggris</span><div class="subj-bar"><div class="subj-bar-fill" id="prg-bing" style="width:0%"></div></div><span class="subj-pct" id="prg-bing-t">0%</span></div>
+          <div class="subj-row"><span class="subj-name">Fisika</span><div class="subj-bar"><div class="subj-bar-fill" id="prg-fis" style="width:0%"></div></div><span class="subj-pct" id="prg-fis-t">0%</span></div>
+          <div class="subj-row"><span class="subj-name">Kimia</span><div class="subj-bar"><div class="subj-bar-fill" id="prg-kim" style="width:0%"></div></div><span class="subj-pct" id="prg-kim-t">0%</span></div>
+          <div class="subj-row"><span class="subj-name">Biologi</span><div class="subj-bar"><div class="subj-bar-fill" id="prg-bio" style="width:0%"></div></div><span class="subj-pct" id="prg-bio-t">0%</span></div>
+          <div class="subj-row"><span class="subj-name">Mat. IPA</span><div class="subj-bar"><div class="subj-bar-fill" id="prg-mipa" style="width:0%"></div></div><span class="subj-pct" id="prg-mipa-t">0%</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">📅 Jadwal SIMAK UI 2026</div>
+          <div class="timeline-item"><div class="tl-dot done"></div><div><div class="tl-title">Pendaftaran SIMAK KKI Gel.1</div><div class="tl-date">2 Mar – 2 Apr 2026 · Selesai</div></div></div>
+          <div class="timeline-item"><div class="tl-dot done"></div><div><div class="tl-title">Ujian SIMAK KKI Gel.1</div><div class="tl-date">12 April 2026 · Selesai</div></div></div>
+          <div class="timeline-item"><div class="tl-dot urgent"></div><div><div class="tl-title">Pendaftaran S1 SIMAK UI</div><div class="tl-date">Mei 2026 · Segera!</div></div></div>
+          <div class="timeline-item"><div class="tl-dot"></div><div><div class="tl-title">Ujian SIMAK UI S1</div><div class="tl-date">Juli 2026 · Persiapkan diri!</div></div></div>
+          <div class="timeline-item"><div class="tl-dot pending"></div><div><div class="tl-title">Pengumuman Hasil</div><div class="tl-date">Akhir Juli 2026</div></div></div>
+        </div>
+      </div>
+      <div class="dash-row">
+        <div class="card">
+          <div class="card-title">📋 Rencana Belajar Hari Ini</div>
+          <div id="schedule-today"></div>
+          <button class="btn-primary" style="margin-top:8px;font-size:0.8rem;padding:7px 16px" onclick="goTo('latihan')">Mulai Latihan →</button>
+        </div>
+        <div class="card">
+          <div class="card-title">⚠️ Perlu Diperkuat</div>
+          <div id="weakness-list"><div class="rekomendasi-item amber">📌 Selesaikan dulu soal latihan untuk melihat analisis kelemahanmu</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MATERI -->
+    <div id="screen-materi" class="screen fade-in">
+      <div id="materi-list-view">
+        <div class="page-title">📚 Materi Belajar</div>
+        <div class="page-sub">Ringkasan materi SIMAK UI Kedokteran — pelajari sebelum latihan soal</div>
+        <div class="tab-bar">
+          <button class="tab-btn-inner active" onclick="filterMateri('all',this)">Semua</button>
+          <button class="tab-btn-inner" onclick="filterMateri('kd',this)">Kemampuan Dasar</button>
+          <button class="tab-btn-inner" onclick="filterMateri('ipa',this)">IPA</button>
+        </div>
+        <div class="materi-grid" id="materi-grid"></div>
+      </div>
+      <div id="materi-detail-view" class="materi-detail">
+        <div class="materi-header"><button class="back-btn" onclick="backToMateriList()">← Kembali</button><span id="materi-detail-title"></span></div>
+        <div class="materi-content" id="materi-detail-content"></div>
+      </div>
+    </div>
+
+    <!-- LATIHAN -->
+    <div id="screen-latihan" class="screen fade-in">
+      <div id="latihan-menu">
+        <div class="page-title">✏️ Latihan Soal</div>
+        <div class="page-sub">Latihan per mata pelajaran sesuai bobot SIMAK UI Kedokteran</div>
+        <div id="latihan-subject-grid" class="materi-grid"></div>
+      </div>
+      <div id="latihan-soal-view" style="display:none">
+        <div class="soal-wrap" id="soal-main-wrap"></div>
+        <div class="soal-actions" id="soal-main-actions"></div>
+      </div>
+    </div>
+
+    <!-- TRYOUT -->
+    <div id="screen-tryout" class="screen fade-in">
+      <div id="to-menu">
+        <div class="page-title">🎯 Try Out Simulasi</div>
+        <div class="page-sub">Simulasi ujian SIMAK UI sesungguhnya — waktu terbatas, skor otomatis</div>
+        <div class="dash-row" style="margin-bottom:20px">
+          <div class="card">
+            <div class="card-title">📋 Tentang Try Out Ini</div>
+            <ul style="color:var(--text2);font-size:0.88rem;line-height:2;padding-left:18px">
+              <li><strong>Kemampuan Dasar (KD):</strong> 45 soal (Mat 15 + BI 15 + Ing 15) — 120 menit</li>
+              <li><strong>Kemampuan IPA (KA):</strong> 60 soal (Mat 15 + Fis 15 + Kim 15 + Bio 15) — 150 menit</li>
+              <li><strong>Total Simulasi:</strong> 105 soal</li>
+              <li><strong>Waktu Simulasi:</strong> 270 menit (4,5 jam)</li>
+              <li><strong>Penilaian:</strong> Benar +4, Salah −1, Kosong 0</li>
+            </ul>
+            <div class="info-box" style="margin-top:12px">💡 <strong>FK UI 2025:</strong> Estimasi passing grade ~300–360 poin (sekitar 71–86% dari skor maks)</div>
+          </div>
+          <div class="card">
+            <div class="card-title">🏆 Riwayat Try Out</div>
+            <div id="to-history-list"><div style="color:var(--muted);font-size:0.85rem;text-align:center;padding:20px 0">Belum ada riwayat try out.</div></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <button class="btn-primary" style="font-size:0.95rem;padding:12px 28px" onclick="startTryout('penuh')">🚀 Mulai Simulasi Penuh</button>
+          <button class="btn-secondary" style="font-size:0.95rem;padding:12px 28px" onclick="startTryout('kd')">📝 Simulasi KD Saja</button>
+          <button class="btn-secondary" style="font-size:0.95rem;padding:12px 28px" onclick="startTryout('ipa')">🔬 Simulasi IPA Saja</button>
+        </div>
+      </div>
+      <div id="to-active" style="display:none">
+        <div class="tryout-header"><div><div class="to-title" id="to-name">Try Out Penuh</div><div class="to-sub">Kerjakan dengan jujur</div></div><div><div class="timer-display" id="timer-display">03:15:00</div></div></div>
+        <div class="to-progress-wrap"><div class="to-progress-bar"><div class="to-progress-fill" id="to-prog-fill" style="width:0%"></div></div><div class="to-stat"><div class="to-stat-val" id="to-answered">0</div><div class="to-stat-lbl">Dijawab</div></div><div class="to-stat"><div class="to-stat-val" id="to-remaining">120</div><div class="to-stat-lbl">Sisa</div></div><div class="to-stat"><div class="to-stat-val" id="to-current-q">1</div><div class="to-stat-lbl">Soal ke-</div></div><button class="btn-danger" onclick="confirmFinishTO()">Selesai</button></div>
+        <div class="soal-nav" id="to-nav"></div>
+        <div class="soal-wrap" id="to-soal-wrap"></div>
+        <div class="soal-actions"><button class="btn-secondary" onclick="toNav(-1)">← Sebelumnya</button><button class="btn-primary" onclick="toNav(1)">Selanjutnya →</button></div>
+      </div>
+      <div id="to-result" style="display:none">
+        <div class="hasil-hero"><div class="skor-besar" id="r-skor">—</div><div class="skor-label">dari skor maks</div><div class="skor-grid"><div class="skor-item"><div class="skor-item-val" id="r-benar">0</div><div class="skor-item-lbl">Benar</div></div><div class="skor-item"><div class="skor-item-val" id="r-salah">0</div><div class="skor-item-lbl">Salah</div></div><div class="skor-item"><div class="skor-item-val" id="r-kosong">0</div><div class="skor-item-lbl">Kosong</div></div><div class="skor-item"><div class="skor-item-val" id="r-akurasi">0%</div><div class="skor-item-lbl">Akurasi</div></div></div><div id="r-verdict"></div></div>
+        <div class="analisis-grid" id="to-analisis-grid"></div>
+        <div class="card"><div class="card-title">📝 Pembahasan Soal</div><div id="to-pembahasan-list"></div></div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px"><button class="btn-primary" onclick="goTo('tryout')">🔄 Try Out Baru</button><button class="btn-secondary" onclick="goTo('analisis')">📊 Analisis</button><button class="btn-secondary" onclick="goTo('materi')">📚 Materi</button></div>
+      </div>
+    </div>
+
+    <!-- JADWAL -->
+    <div id="screen-jadwal" class="screen fade-in">
+      <div class="page-title">📅 Jadwal & Rencana Belajar</div>
+      <div class="page-sub">Jadwal resmi SIMAK UI 2026 + rencana belajar harian</div>
+      <div class="countdown-box"><div class="cd-title"><h3>⏳ Hitung Mundur ke Ujian</h3><p>Target: Juli 2026</p></div><div class="cd-units"><div class="cd-unit"><div class="cd-num" id="cd-hari">—</div><div class="cd-lbl">Hari</div></div><div class="cd-unit"><div class="cd-num" id="cd-jam">—</div><div class="cd-lbl">Jam</div></div><div class="cd-unit"><div class="cd-num" id="cd-mnt">—</div><div class="cd-lbl">Menit</div></div><div class="cd-unit"><div class="cd-num" id="cd-dtk">—</div><div class="cd-lbl">Detik</div></div></div></div>
+      <div class="card"><div class="card-title">🗓️ Jadwal Resmi</div><div class="jadwal-simak"><div class="jadwal-row header"><span>Tanggal</span><span>Kegiatan</span><span>Status</span></div><div class="jadwal-row"><span class="jadwal-date">Juli 2026</span><span class="jadwal-event">UJIAN SIMAK UI S1</span><span class="jadwal-status js-soon">Target!</span></div></div></div>
+      <div class="dash-row"><div class="card"><div class="card-title">📆 Rencana Belajar</div><div id="schedule-list"></div><button class="btn-primary" style="margin-top:12px" onclick="addScheduleItem()">+ Tambah Jadwal</button></div><div class="card"><div class="card-title">✅ Aktivitas Belajar</div><div class="belajar-grid" id="belajar-grid"></div></div></div>
+    </div>
+
+    <!-- ANALISIS -->
+    <div id="screen-analisis" class="screen fade-in">
+      <div class="page-title">📊 Analisis Capaian</div>
+      <div class="page-sub">Evaluasi mendalam atas performa dan rekomendasi perbaikan</div>
+      <div id="analisis-content"><div style="text-align:center;padding:60px 20px"><div style="font-size:3rem">📊</div><div>Belum Ada Data</div><button class="btn-primary" onclick="goTo('tryout')">Mulai Try Out</button></div></div>
+    </div>
+
+    <!-- DEVELOPER PANEL -->
+    <div id="screen-developer" class="screen">
+      <div class="dev-panel" style="max-width:960px;margin:0 auto;padding:24px 0">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#1a2e25,#2d4a3e);display:flex;align-items:center;justify-content:center;font-size:22px">⚙️</div>
+          <div><h2 style="font-size:1.3rem;font-weight:800;color:var(--text)">Developer Panel</h2><p style="color:var(--muted2);font-size:0.83rem">Kelola soal & data</p></div>
+        </div>
+        
+        <div class="dev-stat-grid" style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));margin-bottom:20px" id="dev-stats">
+          <div class="dev-stat-card" style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center"><div class="dev-stat-num" id="dv-total" style="font-size:1.6rem;font-weight:800;color:var(--teal)">0</div><div class="dev-stat-lbl">Total Soal</div></div>
+        </div>
+
+        <!-- TOMBOL RESET DATA -->
+        <div style="margin-top: 24px; padding: 16px; background: var(--red-light); border: 2px solid var(--red); border-radius: 12px;">
+          <div style="font-weight: 800; color: var(--red); margin-bottom: 8px; font-size: 1rem;">🗑 Reset Semua Progres Belajar</div>
+          <div style="font-size: 0.8rem; color: var(--muted2); margin-bottom: 12px;">
+            Tindakan ini akan menghapus SEMUA data berikut secara permanen:
+            <ul style="margin-top: 6px; padding-left: 20px;">
+              <li>Jawaban latihan soal</li>
+              <li>Riwayat Try Out (skor, analisis)</li>
+              <li>Jadwal belajar dan checklist</li>
+              <li>XP dan streak</li>
+            </ul>
+            <strong style="color: var(--red);">⚠️ Data tidak dapat dipulihkan setelah direset!</strong>
+          </div>
+          <button class="btn-danger" onclick="resetAllData()" style="background: #c0392b; font-size: 0.9rem; padding: 10px 24px;">🗑 Reset Semua Data (Mulai dari Awal)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-overlay"><div class="modal"><div class="modal-icon" id="modal-icon">⚠️</div><div class="modal-title" id="modal-title">Konfirmasi</div><div class="modal-sub" id="modal-sub"></div><div class="modal-btns"><button class="btn-danger" id="modal-confirm">Ya</button><button class="btn-secondary" onclick="closeModal()">Batal</button></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+// STATE
+const STATE = {
+  xp: 0, streak: 3, answered: {}, toAnswers: {}, toActive: false, toTimer: null,
+  toTimeLeft: 0, toType: 'penuh', currentToIndex: 0, toSoals: [],
+  latihanSoals: [], latihanIndex: 0, latihanSubject: null, history: [], scheduleItems: []
+};
+
+// DEFAULT SCHEDULE
+STATE.scheduleItems = [
+  {id:1, title:'Latihan Fisika Medis', sub:'15 soal · 30 menit', tag:'ipa', done:false},
+  {id:2, title:'Biologi: Sel & Imunologi', sub:'20 soal · 40 menit', tag:'ipa', done:false},
+  {id:3, title:'Kimia: Buffer & Biomolekul', sub:'15 soal · 30 menit', tag:'ipa', done:false},
+  {id:4, title:'Matematika Dasar', sub:'15 soal · 30 menit', tag:'kd', done:false},
+  {id:5, title:'Try Out Mini', sub:'90 menit', tag:'to', done:false}
+];
+
+// SOAL DATA (simplified - cukup untuk demo)
+const SOAL = {
+  matdas: [{q:"Dua dadu dilempar, peluang jumlah 9",o:["A. 1/9","B. 1/12","C. 5/36","D. 1/6","E. 7/36"],a:0,p:"Ada 4 pasangan (3,6),(4,5),(5,4),(6,3) → 4/36=1/9",mapel:"Mat. Dasar",level:"mudah",topik:"Peluang",tag:"",img:""}],
+  bind: [{q:"Makna kata 'antigen' adalah",o:["A. sel darah","B. zat asing","C. antibodi","D. protein","E. virus"],a:1,p:"Antigen = zat asing yang merangsang antibodi",mapel:"B. Indonesia",level:"mudah",topik:"Kosakata",tag:"",img:""}],
+  bing: [{q:"Benign tumor means",o:["A. malignant","B. harmful","C. not cancerous","D. spreading","E. fatal"],a:2,p:"Benign = tidak berbahaya/tidak kanker",mapel:"B. Inggris",level:"mudah",topik:"Medical",tag:"",img:""}],
+  fisika: [{q:"Benda jatuh bebas dari 80m, v saat tanah? (g=10)",o:["A.20","B.30","C.40","D.50","E.60"],a:2,p:"v=√(2gh)=√(2×10×80)=40 m/s",mapel:"Fisika",level:"mudah",topik:"Mekanika",tag:"",img:""}],
+  kimia: [{q:"pH HCl 0.01M",o:["A.1","B.2","C.3","D.4","E.12"],a:1,p:"[H+]=10^-2 → pH=2",mapel:"Kimia",level:"mudah",topik:"Asam-Basa",tag:"",img:""}],
+  biologi: [{q:"Organel sintesis protein",o:["A.mitokondria","B.ribosom","C.lisosom","D.sentriol","E.vakuola"],a:1,p:"Ribosom tempat translasi mRNA ke protein",mapel:"Biologi",level:"mudah",topik:"Sel",tag:"",img:""}],
+  matipa: [{q:"sin15° cos15° =",o:["A.1/8","B.1/4","C.√3/4","D.√2/4","E.1/2"],a:1,p:"=½ sin30° = ½×½=1/4",mapel:"Mat. IPA",level:"sedang",topik:"Trigonometri",tag:"",img:""}]
+};
+
+const MATERI_LIST = [
+  {id:'fisika-medis', icon:'🔬', title:'Fisika Medis', sub:'Prinsip fisika dalam alat diagnostik', chips:['USG','MRI','Sinar X'], group:'ipa', color:'#1a5276'},
+  {id:'biologi-sel', icon:'🧬', title:'Biologi Sel', sub:'Sel, genetika, sintesis protein', chips:['Sel','DNA','Mitosis'], group:'ipa', color:'#922b21'},
+];
+const MATERI_KONTEN = {'fisika-medis':'<h2>Fisika Medis</h2><p>Materi fisika untuk kedokteran.</p>','biologi-sel':'<h2>Biologi Sel</h2><p>Struktur dan fungsi sel.</p>'};
+
+const LATIHAN_SUBJECTS = [
+  {key:'matdas', icon:'📐', title:'Matematika Dasar', color:'#1f618d'},
+  {key:'bind', icon:'📝', title:'Bahasa Indonesia', color:'#935116'},
+  {key:'bing', icon:'🌐', title:'Bahasa Inggris', color:'#1a5276'},
+  {key:'fisika', icon:'⚡', title:'Fisika', color:'#117a65'},
+  {key:'kimia', icon:'⚗️', title:'Kimia', color:'#1e8449'},
+  {key:'biologi', icon:'🧬', title:'Biologi', color:'#922b21'},
+  {key:'matipa', icon:'∫', title:'Matematika IPA', color:'#6c3483'}
+];
+
+// CORE FUNCTIONS
+function goTo(screen) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-'+screen).classList.add('active');
+  if(screen==='materi') initMateri();
+  if(screen==='latihan') initLatihanMenu();
+  if(screen==='jadwal') { startCountdown(); renderScheduleList(); renderBelajarGrid(); }
+  if(screen==='analisis') renderAnalisis();
+  if(screen==='dashboard') updateDashboard();
+}
+function updateDashboard() {
+  document.getElementById('xp-count').textContent = STATE.xp;
+  document.getElementById('stat-soal').textContent = Object.keys(STATE.answered).length;
+  document.getElementById('stat-to').textContent = STATE.history.length;
+  let benar = 0, total = Object.values(STATE.answered);
+  total.forEach(a => { if(a.correct) benar++; });
+  document.getElementById('stat-akurasi').textContent = total.length ? Math.round(benar/total.length*100)+'%' : '—';
+  if(STATE.history.length) document.getElementById('stat-skor').textContent = STATE.history[STATE.history.length-1].skor;
+  const schedEl = document.getElementById('schedule-today');
+  if(schedEl) schedEl.innerHTML = STATE.scheduleItems.slice(0,3).map(item => `<div class="sched-item ${item.done?'done':''}"><div class="sched-check" onclick="toggleSchedule(${item.id})">${item.done?'✓':''}</div><div class="sched-info"><div class="sched-title">${item.title}</div><div class="sched-sub">${item.sub}</div></div></div>`).join('');
+}
+function initMateri() {
+  document.getElementById('materi-grid').innerHTML = MATERI_LIST.map(m => `<div class="materi-card" style="--card-color:${m.color}" onclick="openMateri('${m.id}')"><div class="mc-icon">${m.icon}</div><div class="mc-title">${m.title}</div><div class="mc-sub">${m.sub}</div><div class="mc-chips">${m.chips.map(c=>`<span class="mc-chip">${c}</span>`).join('')}</div></div>`).join('');
+}
+function openMateri(id) {
+  document.getElementById('materi-list-view').style.display = 'none';
+  document.getElementById('materi-detail-view').classList.add('active');
+  document.getElementById('materi-detail-title').textContent = MATERI_LIST.find(x=>x.id===id).title;
+  document.getElementById('materi-detail-content').innerHTML = MATERI_KONTEN[id] || '<p>Konten segera hadir.</p>';
+}
+function backToMateriList() {
+  document.getElementById('materi-list-view').style.display = 'block';
+  document.getElementById('materi-detail-view').classList.remove('active');
+}
+function initLatihanMenu() {
+  document.getElementById('latihan-menu').style.display = 'block';
+  document.getElementById('latihan-soal-view').style.display = 'none';
+  const grid = document.getElementById('latihan-subject-grid');
+  grid.innerHTML = LATIHAN_SUBJECTS.map(s => `<div class="materi-card" onclick="startLatihan('${s.key}')"><div class="mc-icon">${s.icon}</div><div class="mc-title">${s.title}</div><div class="mc-sub">${(SOAL[s.key]||[]).length} soal</div></div>`).join('');
+}
+function startLatihan(key) {
+  STATE.latihanSubject = key;
+  STATE.latihanSoals = [...(SOAL[key]||[])];
+  STATE.latihanIndex = 0;
+  document.getElementById('latihan-menu').style.display = 'none';
+  document.getElementById('latihan-soal-view').style.display = 'block';
+  renderLatihanSoal();
+}
+function renderLatihanSoal() {
+  const soal = STATE.latihanSoals[STATE.latihanIndex];
+  if(!soal) return;
+  const key = STATE.latihanSubject+'-'+STATE.latihanIndex;
+  const prev = STATE.answered[key];
+  document.getElementById('soal-main-wrap').innerHTML = `<div class="soal-meta"><span class="soal-num-badge">Soal ${STATE.latihanIndex+1}/${STATE.latihanSoals.length}</span><span class="soal-mapel-badge">${soal.mapel}</span></div><div class="soal-text">${soal.q}</div><div class="options">${soal.o.map((o,oi)=>`<div class="option ${prev?(oi===soal.a?'correct':(oi===prev.chosen?'wrong':'')):''}" onclick="pilihLatihanOpt(${oi})"><span class="opt-key">${String.fromCharCode(65+oi)}</span>${o.substring(3)}</div>`).join('')}</div>${prev?`<div class="pembahasan-box show"><div class="pem-title">Pembahasan</div>${soal.p}</div>`:''}`;
+  document.getElementById('soal-main-actions').innerHTML = `<button class="btn-secondary" onclick="${STATE.latihanIndex>0?'STATE.latihanIndex--;renderLatihanSoal()':'initLatihanMenu()'}">← Kembali</button>${STATE.latihanIndex<STATE.latihanSoals.length-1?`<button class="btn-primary" onclick="STATE.latihanIndex++;renderLatihanSoal()">Selanjutnya →</button>`:`<button class="btn-primary" onclick="initLatihanMenu()">Selesai</button>`}`;
+}
+function pilihLatihanOpt(oi) {
+  const key = STATE.latihanSubject+'-'+STATE.latihanIndex;
+  if(STATE.answered[key]) return;
+  const soal = STATE.latihanSoals[STATE.latihanIndex];
+  const correct = oi === soal.a;
+  STATE.answered[key] = {chosen:oi, correct};
+  STATE.xp += correct?10:2;
+  renderLatihanSoal();
+  showToast(correct?'✅ Benar! +10 XP':'❌ Salah. Lihat pembahasan.');
+}
+function startTryout(type) {
+  STATE.toType = type;
+  STATE.toSoals = [];
+  ['matdas','bind','bing'].forEach(k => { if(type==='penuh'||type==='kd') STATE.toSoals.push(...(SOAL[k]||[]).slice(0,3)); });
+  ['fisika','kimia','biologi','matipa'].forEach(k => { if(type==='penuh'||type==='ipa') STATE.toSoals.push(...(SOAL[k]||[]).slice(0,3)); });
+  STATE.toAnswers = {};
+  STATE.currentToIndex = 0;
+  STATE.toTimeLeft = type==='penuh'?270*60:(type==='kd'?120*60:150*60);
+  document.getElementById('to-menu').style.display = 'none';
+  document.getElementById('to-active').style.display = 'block';
+  document.getElementById('to-result').style.display = 'none';
+  renderTOSoal();
+  startTimer();
+}
+function renderTOSoal() {
+  const soal = STATE.toSoals[STATE.currentToIndex];
+  if(!soal) return;
+  const ans = STATE.toAnswers[STATE.currentToIndex];
+  document.getElementById('to-soal-wrap').innerHTML = `<div class="soal-meta"><span class="soal-num-badge">Soal ${STATE.currentToIndex+1}/${STATE.toSoals.length}</span><span class="soal-mapel-badge">${soal.mapel}</span></div><div class="soal-text">${soal.q}</div><div class="options">${soal.o.map((o,oi)=>`<div class="option ${ans===oi?'selected':''}" onclick="selectTO(${oi})"><span class="opt-key">${String.fromCharCode(65+oi)}</span>${o.substring(3)}</div>`).join('')}</div>`;
+  document.getElementById('to-answered').textContent = Object.keys(STATE.toAnswers).length;
+  document.getElementById('to-remaining').textContent = STATE.toSoals.length - Object.keys(STATE.toAnswers).length;
+}
+function selectTO(oi) { STATE.toAnswers[STATE.currentToIndex] = oi; renderTOSoal(); }
+function toNav(dir) { let n = STATE.currentToIndex+dir; if(n>=0 && n<STATE.toSoals.length) { STATE.currentToIndex=n; renderTOSoal(); } }
+function startTimer() {
+  if(STATE.toTimer) clearInterval(STATE.toTimer);
+  STATE.toTimer = setInterval(() => {
+    STATE.toTimeLeft--;
+    let h=Math.floor(STATE.toTimeLeft/3600), m=Math.floor((STATE.toTimeLeft%3600)/60), s=STATE.toTimeLeft%60;
+    document.getElementById('timer-display').textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    if(STATE.toTimeLeft<=0) finishTO();
+  },1000);
+}
+function confirmFinishTO() {
+  document.getElementById('modal-sub').textContent = `Masih ${STATE.toSoals.length - Object.keys(STATE.toAnswers).length} soal belum dijawab. Yakin kumpulkan?`;
+  document.getElementById('modal-confirm').onclick = () => { closeModal(); finishTO(); };
+  document.getElementById('modal-overlay').classList.add('show');
+}
+function closeModal() { document.getElementById('modal-overlay').classList.remove('show'); }
+function finishTO() {
+  clearInterval(STATE.toTimer);
+  let benar=0,salah=0,kosong=0;
+  STATE.toSoals.forEach((soal,i)=>{
+    const ans=STATE.toAnswers[i];
+    if(ans===undefined) kosong++;
+    else if(ans===soal.a) benar++;
+    else salah++;
+  });
+  const skor = benar*4 - salah*1;
+  STATE.xp += benar*10;
+  STATE.history.push({skor,benar,salah,kosong,date:new Date().toLocaleDateString()});
+  document.getElementById('to-active').style.display = 'none';
+  document.getElementById('to-result').style.display = 'block';
+  document.getElementById('r-skor').textContent = skor;
+  document.getElementById('r-benar').textContent = benar;
+  document.getElementById('r-salah').textContent = salah;
+  document.getElementById('r-kosong').textContent = kosong;
+  document.getElementById('r-akurasi').textContent = Math.round(benar/(benar+salah||1)*100)+'%';
+  updateDashboard();
+}
+function startCountdown() {
+  const target = new Date('2026-07-10T00:00:00');
+  setInterval(()=>{let d=Math.floor((target-new Date())/86400000);document.getElementById('cd-hari').textContent=d>0?d:0;},1000);
+}
+function renderScheduleList() {
+  document.getElementById('schedule-list').innerHTML = STATE.scheduleItems.map(item => `<div class="sched-item ${item.done?'done':''}"><div class="sched-check" onclick="toggleSchedule(${item.id})">${item.done?'✓':''}</div><div class="sched-info"><div class="sched-title">${item.title}</div><div class="sched-sub">${item.sub}</div></div></div>`).join('');
+}
+function toggleSchedule(id) { let item=STATE.scheduleItems.find(i=>i.id===id); if(item){item.done=!item.done;renderScheduleList();updateDashboard();saveAllData();} }
+function addScheduleItem() { let t=prompt('Judul jadwal:'); if(t){STATE.scheduleItems.push({id:Date.now(),title:t,sub:'Custom',tag:'kd',done:false});renderScheduleList();saveAllData();showToast('✅ Jadwal ditambahkan!');} }
+function renderBelajarGrid() {
+  let grid='';
+  for(let i=29;i>=0;i--) grid+=`<div class="belajar-day">${i+1}</div>`;
+  document.getElementById('belajar-grid').innerHTML=grid;
+}
+function renderAnalisis() {
+  if(!STATE.history.length) return;
+  let last=STATE.history[STATE.history.length-1];
+  document.getElementById('analisis-content').innerHTML = `<div class="card"><div class="card-title">🎯 Skor Terakhir: ${last.skor}</div><div>✅ ${last.benar} benar | ❌ ${last.salah} salah | ⬜ ${last.kosong} kosong</div></div>`;
+}
+function showToast(msg) { let t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
+
+// PERSISTENCE
+function saveAllData() {
+  let data = { answered:STATE.answered, history:STATE.history, scheduleItems:STATE.scheduleItems, xp:STATE.xp, streak:STATE.streak };
+  localStorage.setItem('medprep_state', JSON.stringify(data));
+}
+function loadAllData() {
+  let saved = localStorage.getItem('medprep_state');
+  if(!saved) return false;
+  try {
+    let data = JSON.parse(saved);
+    STATE.answered = data.answered || {};
+    STATE.history = data.history || [];
+    STATE.scheduleItems = data.scheduleItems || STATE.scheduleItems;
+    STATE.xp = data.xp || 0;
+    STATE.streak = data.streak || 3;
+    return true;
+  } catch(e) { return false; }
+}
+
+// RESET FUNCTION
+function resetAllData() {
+  if(confirm('⚠️ PERINGATAN! Semua progres (jawaban, riwayat, XP) akan dihapus permanen. Lanjutkan?')) {
+    localStorage.removeItem('medprep_state');
+    STATE.answered = {};
+    STATE.history = [];
+    STATE.scheduleItems = [
+      {id:1, title:'Latihan Fisika Medis', sub:'15 soal · 30 menit', tag:'ipa', done:false},
+      {id:2, title:'Biologi: Sel & Imunologi', sub:'20 soal · 40 menit', tag:'ipa', done:false},
+      {id:3, title:'Kimia: Buffer & Biomolekul', sub:'15 soal · 30 menit', tag:'ipa', done:false},
+      {id:4, title:'Matematika Dasar', sub:'15 soal · 30 menit', tag:'kd', done:false},
+      {id:5, title:'Try Out Mini', sub:'90 menit', tag:'to', done:false}
+    ];
+    STATE.xp = 0;
+    STATE.streak = 3;
+    updateDashboard();
+    renderScheduleList();
+    showToast('🗑 Semua data telah direset!');
+    if(confirm('Refresh halaman untuk memastikan reset sempurna?')) location.reload();
+  }
+}
+
+// INIT
+document.addEventListener('DOMContentLoaded', () => {
+  loadAllData();
+  updateDashboard();
+  document.getElementById('dv-total').textContent = Object.values(SOAL).flat().length;
+});
+</script>
+</body>
+</html>
