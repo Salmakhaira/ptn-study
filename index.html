@@ -4382,6 +4382,45 @@ function loadAllData() {
     }
 }
 
+function resetAllData() {
+    if(confirm('⚠️ PERINGATAN BERAT! ⚠️\n\nSemua progres belajar Anda akan dihapus permanen:\n• Jawaban latihan\n• Riwayat Try Out\n• Jadwal & checklist\n• XP dan streak\n\nData TIDAK dapat dipulihkan.\n\nApakah Anda yakin ingin melanjutkan?')) {
+        // Hapus dari localStorage
+        localStorage.removeItem('medprep_state');
+        
+        // Reset STATE ke nilai awal
+        STATE.answered = {};
+        STATE.history = [];
+        STATE.scheduleItems = [
+            {id:1, title:'Latihan Fisika Medis (USG, MRI, Poiseuille)', sub:'15 soal · 30 menit', tag:'ipa', done:false},
+            {id:2, title:'Biologi: Sel & Imunologi', sub:'20 soal · 40 menit', tag:'ipa', done:false},
+            {id:3, title:'Kimia: Buffer & Biomolekul', sub:'15 soal · 30 menit', tag:'ipa', done:false},
+            {id:4, title:'Matematika Dasar: Kalkulus & Matriks', sub:'15 soal · 30 menit', tag:'kd', done:false},
+            {id:5, title:'Try Out Mini (60 soal)', sub:'90 menit', tag:'to', done:false},
+            {id:6, title:'Bahasa Inggris: Medical Reading', sub:'10 soal · 20 menit', tag:'kd', done:false}
+        ];
+        STATE.xp = 0;
+        STATE.streak = 3;
+        STATE.latihanSubject = null;
+        STATE.latihanIndex = 0;
+        STATE.latihanSoals = [];
+        
+        // Refresh UI
+        updateDashboard();
+        
+        // Tampilkan notifikasi sukses
+        showToast('🗑 Semua data telah direset! Mulai belajar dari awal.');
+        
+        // Optional: Reload halaman untuk memastikan semua state bersih
+        setTimeout(() => {
+            if(confirm('Refresh halaman untuk memastikan semua reset sempurna? (Disarankan)')) {
+                location.reload();
+            }
+        }, 500);
+    } else {
+        showToast('Reset dibatalkan.');
+    }
+}
+   
 // Override fungsi yang mengubah STATE untuk otomatis menyimpan
 const originalPilihLatihanOpt = pilihLatihanOpt;
 window.pilihLatihanOpt = function(oi) {
